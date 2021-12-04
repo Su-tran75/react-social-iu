@@ -45,7 +45,7 @@
 .postImg {
   margin-top: 20px;
   width: 100%;
-  max-width: height 500px;
+  max-height: 500px;
   object-fit: contain;
 }
 
