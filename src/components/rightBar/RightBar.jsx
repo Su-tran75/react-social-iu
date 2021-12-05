@@ -3,7 +3,7 @@ import "./rightBar.css";
 import { Users } from "../../dummyData";
 import Online from "../online/Online";
 
-export default function RightBar({ profile }) {
+export default function RightBar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const HomeRightBar = () => {
@@ -33,15 +33,15 @@ export default function RightBar({ profile }) {
         <div className="rightBarInfo">
           <div className="rightBarInfoItem">
             <span className="rightBarInfoKey">City:</span>
-            <span className="rightBarValue">Barcelona</span>
+            <span className="rightBarValue">{user.city}</span>
           </div>
           <div className="rightBarInfoItem">
             <span className="rightBarInfoKey">From:</span>
-            <span className="rightBarValue">Paris</span>
+            <span className="rightBarValue">{user.from}</span>
           </div>
           <div className="rightBarInfoItem">
             <span className="rightBarInfoKey">Relationship:</span>
-            <span className="rightBarValue">Single</span>
+            <span className="rightBarValue">{user.relationship ===1 ? "Single" : user.relationship ===2 ? "Married" : "--"}</span>
           </div>
         </div>
         <h4 className="rightBarTitle">User friends</h4>
@@ -110,7 +110,7 @@ export default function RightBar({ profile }) {
   return (
     <div className="rightBar">
       <div className="rightBarWrapper">
-        {profile ? <ProfileRightBar /> : <HomeRightBar />}
+        {user ? <ProfileRightBar /> : <HomeRightBar />}
       </div>
     </div>
   );
