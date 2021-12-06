@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./login.css";
 
 export default function Login() {
+  const email = useRef();
+  const password = useRef();
+
+  const handlClick = (e) => {
+    e.preventDefault();
+    console.log(email.current.value);
+  };
+
   return (
     <div className="login">
       <div className="loginWrapper">
@@ -11,17 +19,30 @@ export default function Login() {
             Connect with friends and the world around you on OTG Social.
           </span>
         </div>
-        <div className="loginRight">
+        <form className="loginRight" onSubmit={handlClick}>
           <div className="loginBox">
-            <input type="text" placeholder="Email" className="loginInput" />
-            <input type="text" placeholder="Password" className="loginInput" />
+            <input
+              type="email"
+              placeholder="Email"
+              className="loginInput"
+              ref={email}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="loginInput"
+              ref={password}
+              required
+              minLength="6"
+            />
             <button className="loginButton">Log In</button>
             <span className="loginForgot">Forgot your password?</span>
             <button className="loginRegisterButton">
               Create a new account.
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
