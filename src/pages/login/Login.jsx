@@ -1,13 +1,21 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import "./login.css";
+import { loginCall } from "../../apiCalls";
+import { AuthContext } from "../../context/AuthContext";
+import { CircularProgress } from "@mui/material";
 
 export default function Login() {
   const email = useRef();
   const password = useRef();
+  const { user, isFetching, error, dispatch } = useContext(AuthContext);
+  console.log("Login -> user", user);
 
-  const handlClick = (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
-    console.log(email.current.value);
+    loginCall(
+      { email: email.current.value, password: password.current.value },
+      dispatch
+    );
   };
 
   return (
@@ -19,7 +27,7 @@ export default function Login() {
             Connect with friends and the world around you on OTG Social.
           </span>
         </div>
-        <form className="loginRight" onSubmit={handlClick}>
+        <form className="loginRight" onSubmit={handleClick}>
           <div className="loginBox">
             <input
               type="email"
@@ -36,10 +44,20 @@ export default function Login() {
               required
               minLength="6"
             />
-            <button className="loginButton">Log In</button>
+            <button className="loginButton" disabled={isFetching}>
+              {isFetching ? (
+                <CircularProgress color="inherit" size="25px" />
+              ) : (
+                "Log In"
+              )}
+            </button>
             <span className="loginForgot">Forgot your password?</span>
             <button className="loginRegisterButton">
-              Create a new account.
+              {isFetching ? (
+                <CircularProgress color="inherit" size="25px" />
+              ) : (
+                "Create a new account."
+              )}
             </button>
           </div>
         </form>
