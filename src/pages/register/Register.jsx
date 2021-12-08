@@ -1,12 +1,14 @@
 import React, { useRef } from "react";
 import "./register.css";
 import axios from "axios";
+import { useHistory } from "react-router";
 
 export default function Register() {
   const username = useRef();
   const email = useRef();
   const password = useRef();
   const confirmPassword = useRef();
+  const history = useHistory();
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -20,6 +22,7 @@ export default function Register() {
       };
       try {
         await axios.post("/auth/register", user);
+        history.push("/login");
       } catch (err) {
         console.log(err);
       }
